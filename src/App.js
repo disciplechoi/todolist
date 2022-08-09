@@ -1,11 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import Habit from './components/Habit';
+// import Habit from './components/Habit';
+import Habits from './components/Habits';
 
 function App() {
   return (
     <div className="App">
-     <Habit/>
+     <Habits/>
     </div>
   );
 }
