@@ -6,16 +6,25 @@ class Habits extends Component {
     }
 
     handleIncrement = (habit) =>{
-        // this.setState({count : this.state.count+1});
-        console.log(JSON.stringify(habit));
+        const habits = [...this.state.habits];
+        const index = habits.indexOf(habit);
+        habits[index].count++;
+        this.setState({habits: habits});
     }
 
     handleDecrement = (habit) =>{
-        const count = this.state.count -1; 
-        this.setState({count : count<0 ? 0 : count-1});
+        // console.log(habit);
+        const habits = [...this.state.habits];
+        const index= habits.indexOf(habit);
+        const count = habits[index].count -1; 
+        habits[index].count = count < 0? 0 : count;
+        this.setState(habits); //괄호 안했는데도 정상 동작함. 이 부분 궁금.
+        // this.setState({count : count<0 ? 0 : count-1});
     }
 
     handleDelete=(habit)=>{
+        const habits = this.state.habits.filter(item=> item.id != habit.id);
+        this.setState({habits});
         
     }
 
