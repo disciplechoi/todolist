@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 class Header extends Component {
     render() {
         return (
-            <div>
+            <>
                 <h1>Todo</h1>
-            </div>
+                <h2>Ongoing : {this.props.ongoingHabits}</h2>
+            </>
         );
     }
 }
