@@ -20,8 +20,7 @@ class Habit extends Component {
     render() {
         const {name, count} = this.props.habit
         return (
-            <div>
-                {/* <p>{this.props.habit}</p> */}
+            <>
                 <li className="habit">
                     <span className="habit-name">{name}</span>
                    <span className="habit-count">{count}</span>
@@ -30,12 +29,8 @@ class Habit extends Component {
                    <button className="habit-button habit-delete" onClick={this.handleDelete}>
                     <i className="fas fa-trash"></i>
                    </button>
-
-
-                </li>
-
-                
-            </div>
+                </li>          
+            </>
         );
     }
 }

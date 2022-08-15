@@ -1,6 +1,5 @@
 import React,{ Component } from 'react';
 import './App.css';
-import AddHabit from './components/AddHabit';
 import Habits from './components/Habits';
 import Header from './components/Header';
 
@@ -34,11 +33,8 @@ handleDelete=(habit)=>{
 }
 
 handleAdd=(habit)=>{
-  const habits = [...this.state.habits];
-  const lastIndex = habits.length;
-  habits.push({id: habits[lastIndex-1]+1, name:habit, count: 0})
+  const habits = [...this.state.habits,{id: Date.now(), name:habit, count: 0} ];
   this.setState({habits});
-
 }
 
  
@@ -48,9 +44,10 @@ handleAdd=(habit)=>{
       <div className="App">
        
          <Header ongoingHabits={this.state.habits.filter(item => item.count>0).length}/>
-         <AddHabit habits={this.state.habits} handleAdd={this.handleAdd}/>
+       
          <Habits habits={this.state.habits}
           handleIncrement={this.handleIncrement} handleDecrement={this.handleDecrement} handleDelete={this.handleDelete}
+          handleAdd={this.handleAdd}
           />
       </div>
     )
