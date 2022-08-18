@@ -28,8 +28,8 @@ class Habits extends Component {
                   <HabitAddForm handleAdd={this.handleAdd}/>
                   <ul>
                      {this.props.habits.map((habit) => (
-                      <li>
-                        <Habit key={habit.id} habit={habit} 
+                      <li key={habit.id} >
+                        <Habit habit={habit} 
                       handleIncrement ={this.handleIncrement} handleDecrement={this.handleDecrement} handleDelete={this.handleDelete}
                       />
                       </li>))}

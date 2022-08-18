@@ -16,7 +16,7 @@ class AddHabit extends Component {
         return (
           <form onSubmit={this.handleSubmit}>
               <input ref={this.inputRef} type="text" placeholder="Habit"/>
-            <input type="submit" value="Add" />
+            <input type="submit" value="Add a task" />
           </form>
         );
 }

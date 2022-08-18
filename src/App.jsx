@@ -42,13 +42,33 @@ handleAdd=(habit)=>{
   render(){
     return (
       <div className="App">
-       
-         <Header ongoingHabits={this.state.habits.filter(item => item.count>0).length}/>
-       
-         <Habits habits={this.state.habits}
+        <div className="todo">
+          <Header ongoingHabits={this.state.habits.filter(item => item.count>0).length}/>
+        
+        <Habits habits={this.state.habits}
           handleIncrement={this.handleIncrement} handleDecrement={this.handleDecrement} handleDelete={this.handleDelete}
           handleAdd={this.handleAdd}
           />
+        </div>
+
+        <div className="todo">
+          <Header ongoingHabits={this.state.habits.filter(item => item.count>0).length}/>
+        
+        <Habits habits={this.state.habits}
+          handleIncrement={this.handleIncrement} handleDecrement={this.handleDecrement} handleDelete={this.handleDelete}
+          handleAdd={this.handleAdd}
+          />
+        </div>
+
+        <div className="todo">
+          <Header ongoingHabits={this.state.habits.filter(item => item.count>0).length}/>
+        
+        <Habits habits={this.state.habits}
+          handleIncrement={this.handleIncrement} handleDecrement={this.handleDecrement} handleDelete={this.handleDelete}
+          handleAdd={this.handleAdd}
+          />
+        </div>
+      
       </div>
     )
   }

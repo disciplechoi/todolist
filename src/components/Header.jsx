@@ -4,8 +4,8 @@ class Header extends Component {
     render() {
         return (
             <>
-                <h1>Todo</h1>
-                <h2>Ongoing : {this.props.ongoingHabits}</h2>
+                <h1>To do({this.props.ongoingHabits})</h1>
+                {/* <h2>Ongoing : {this.props.ongoingHabits}</h2> */}
             </>
         );
     }
