@@ -15,8 +15,8 @@ class AddHabit extends Component {
       render() {
         return (
           <form onSubmit={this.handleSubmit}>
-              <input ref={this.inputRef} type="text" placeholder="Habit"/>
-            <input type="submit" value="Add a task" />
+              {/* <input ref={this.inputRef} type="text" placeholder="Habit"/> */}
+            <input className="btn-add bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit" value="+ Add a task" />
           </form>
         );
 }
