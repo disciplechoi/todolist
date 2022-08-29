@@ -6,6 +6,13 @@ import './App.css';
 import initialData from './initialData';
 import Column from './components/Column';
 import taskData from './taskData';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    display: flex;
+`;
+
+
 
 //import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -52,9 +59,9 @@ handleAdd=(task)=>{
 onDragEnd = result => {
   const {destination, source, draggableId} = result;
 
-  console.log("destination : " + JSON.stringify(destination));
-  console.log("source :  "+ JSON.stringify(source));
-  console.log("draggableId "+ draggableId);
+  // console.log("destination : " + JSON.stringify(destination));
+  // console.log("source :  "+ JSON.stringify(source));
+  // console.log("draggableId "+ draggableId);
 
   if(!destination) return;
   
@@ -68,18 +75,19 @@ onDragEnd = result => {
   //console.log("column : " + JSON.stringify(column));
 
   const newTaskIds = Array.from(column.taskIds);
-  console.log("newTaskIds : (1)" + JSON.stringify(newTaskIds));
+  // console.log("newTaskIds : (1)" + JSON.stringify(newTaskIds));
   newTaskIds.splice(source.index, 1);
-  console.log("newTaskIds : (2)" + JSON.stringify(newTaskIds));
-  // newTaskIds.splice(destination.index, 0, this.state.taskData.filter(id= draggableId));
-  console.log("newTaskIds : (3)" + JSON.stringify(newTaskIds));
+  // console.log("newTaskIds : (2)" + JSON.stringify(newTaskIds));
+  newTaskIds.splice(destination.index, 0, this.state.taskData.filter(task => task.id === draggableId));
+  
+  // console.log( this.state.taskData.filter(task => task.id === draggableId));
 
   // const newColumn = {
   //     ...column,
   //     taskIds: newTaskIds,
   // };
 
-  // console.log("newColumn : " + JSON.stringify(newColumn));
+  console.log("newTaskIds : " + JSON.stringify(newTaskIds));
 
   // const newState = {
   //     ...this.state,
@@ -91,7 +99,12 @@ onDragEnd = result => {
 
   // this.setState(newState);
 
+  
+  this.setState(initialData.columns['column-1'].taskIds = newTaskIds);
   this.setState({taskData : newTaskIds});
+  console.log("newTaskIds : " + JSON.stringify(this.state.taskData));
+  // console.log("final : "+ JSON.stringify(this.state.taskData));
+  // console.log("final : "+ JSON.stringify(initialData.columns['column-1'].taskIds = newTaskIds));
   // this.setState(initialData.columns['column-1'].taskIds = newTaskIds);
 }
 
@@ -99,26 +112,19 @@ onDragEnd = result => {
 
   render(){
     return (
-        
+      <Container>
         <DragDropContext
             onDragEnd={this.onDragEnd}
         >
-          {this.state.initialData.columnOrder.map(columnID => {
+          {this.state.initialData.columnOrder.map((columnID, index) => {
               const column = this.state.initialData.columns[columnID];
-              // console.log("hello");
-                //console.log(column);
-              // const tasks = column.taskIds.map(taskIds => this.state.tasks[taskIds]);
-              //console.log(JSON.stringify(column.taskIds))
-              // const tasks = column.taskIds.map(taskIds => 
-              //   taskIds.tasks
-              // );
-              // console.log("from App : "+ JSON.stringify(column.taskIds));
-            //  const tasks = 
-            return <Column key={column.id} column={column} tasks={column.taskIds} handleAdd={this.handleAdd}/>
+          
+            // return이 있어야지 동작한다 왜? 
+            return <Column key={column.id} index={index} column={column} tasks={column.taskIds} handleAdd={this.handleAdd}/>
             })
           }
         </DragDropContext>
-     
+        </Container> 
 
       // <div className="App">
       //   {this.state.columnOrder.map((columnId) =>(

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+
+
+
 class AddTask extends Component {
 
     inputRef = React.createRef();
@@ -17,7 +20,7 @@ class AddTask extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
             <input ref={this.inputRef} type="text" placeholder="Task"/>
-          <input type="submit" value="Add a task" />
+             <input type="submit" className="btn-add bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" value="Add a task" />
         </form>
         );
     }

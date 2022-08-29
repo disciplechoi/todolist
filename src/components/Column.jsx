@@ -36,7 +36,7 @@ class Column extends Component {
 
 
             
-                <Droppable droppableId={this.props.column.id}>
+                <Droppable droppableId={this.props.column.id} key={this.props.column.id}>
                     {(provided)=>(
                         <TaskList
                             ref={provided.innerRef}
@@ -44,7 +44,9 @@ class Column extends Component {
                         >
                          {
                             this.props.tasks.map((task, index)=>
-                            <Task key={task.id} task={task} index={index}></Task>)
+                            // {console.log(task.id)}
+                            <Task key={task.id} task={task} index={index}/>
+                            )
                          }
                          {provided.placeholder}
                         </TaskList>
