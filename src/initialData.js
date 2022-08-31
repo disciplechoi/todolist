@@ -1,11 +1,11 @@
 import taskData from "./taskData";
 
 const initialData = {
-    // tasks : {
-    //     'task-1' : {id: 'task-1', name: "Reading" , count : 0}, 
-    //     'task-2' : {id:'task-2' ,name: "Writing" , count : 0}, 
-    //     'task-3' : {id:'task-3' ,name: "수영하기" , count : 0} 
-    // },
+    tasks : {
+        'task-1' : {id: 'task-1', name: "Reading" , count : 0}, 
+        'task-2' : {id:'task-2' ,name: "Writing" , count : 0}, 
+        'task-3' : {id:'task-3' ,name: "수영하기" , count : 0} 
+    },
 
     // tasks : [
     //     {id: 'task-1', name: "Reading" , count : 0}, 
@@ -17,7 +17,8 @@ const initialData = {
         'column-1' : {
         id: 'column-1',
         title: 'To do',
-        taskIds: taskData,
+        // taskIds: taskData,
+        taskIds : ['task-1', 'task-2', 'task-3']
         },
 
         'column-2' : {

@@ -7,11 +7,15 @@ import AddTask from './AddTask';
 
 const Container = styled.div`
     margin: 8px;
-    border: 1px solid lightgrey;
-    border-radius: 2px;
+    width: 350px;
+    // border: 1px solid lightgrey;
+    // border-radius: 2px;
 `;
 const Title = styled.h3`
     padding: 8px;
+    font-weight: 700;
+    font-size: 20px;
+
 `;
 const TaskList = styled.div`
     padding: 8px;
@@ -29,10 +33,14 @@ class Column extends Component {
     render() {
         return (
             <Container>
-                <Title>
-                    {this.props.column.title}
-                </Title>
-                {this.props.column.id === 'column-1' ? <AddTask handleAdd={this.handleAdd} /> : <></>}
+                <div className="column_title">
+                    <Title>
+                        {this.props.column.title}
+                    </Title>
+                    {this.props.column.id === 'column-1' ? <button className="btn-add  text-white font-bold px-4 rounded-full">+ Add Task</button> : <></>}
+                </div>
+                
+                {/* {this.props.column.id === 'column-1' ? <AddTask handleAdd={this.handleAdd} /> : <></>} */}
 
 
             

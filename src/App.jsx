@@ -5,24 +5,28 @@ import './App.css';
 // import Header from './components/Header';
 import initialData from './initialData';
 import Column from './components/Column';
-import taskData from './taskData';
 import styled from 'styled-components';
 
 const Container = styled.div`
     display: flex;
+    // background-color: #FFFFFF;
+    // border: 1px solid #E9E7F0;
+    justify-content: center;
+    // align-items: center;
+    border-radius: 8px;
+    height: 100vh;
+    // width: 90%;
+    
 `;
 
 
-
-//import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-// let count = 1;
-
 class App extends Component {
-    state = {
-      initialData : initialData,
-      taskData : taskData
-    };
+    // state = {
+    //   initialData : initialData,
+    //   taskData : taskData
+    // };
+
+    state = initialData;
 
 //  handleIncrement = (habit) =>{
 //   const habits = [...this.state.habits];
@@ -49,10 +53,25 @@ class App extends Component {
 
 handleAdd=(task)=>{
  
-  const tasks = [...this.state.taskData,{id: Date.now().toString(), name:task, count: 0} ];
+  const tag = 'task-'+Date.now().toString();
+
+  // const tasks = [...this.state.tasks, tag : {id: Date.now().toString(), name:task, count: 0} ];
  
-  this.setState({taskData : tasks});
-  this.setState(initialData.columns['column-1'].taskIds = tasks);
+  const newTaskIds = this.state.columns['column-1'].taskIds.map(taskIds => taskIds);
+  const newTaskIds2 = [...newTaskIds,tag];
+
+  //도대체 setState를 어떻게 해야지 전체적으로 적용이 되는지 모르겠음.
+  const newTask2={
+    ...this.state,
+    tasks: {
+      ...this.state.tasks,
+      [tag] : {id: tag, name:task, count: 0}
+    }
+  }
+  this.setState(newTask2);
+
+  const test = [...this.state.columns['column-1'].taskIds, tag]
+  this.setState(this.state.columns['column-1'].taskIds = test);
 
 }
 
@@ -61,7 +80,7 @@ onDragEnd = result => {
 
   // console.log("destination : " + JSON.stringify(destination));
   // console.log("source :  "+ JSON.stringify(source));
-  // console.log("draggableId "+ draggableId);
+  console.log("draggableId "+ draggableId);
 
   if(!destination) return;
   
@@ -71,44 +90,18 @@ onDragEnd = result => {
   ) return ;
   
 
-  const column = this.state.initialData.columns[source.droppableId];
+  const column = this.state.columns[source.droppableId];
   //console.log("column : " + JSON.stringify(column));
 
   const newTaskIds = Array.from(column.taskIds);
   // console.log("newTaskIds : (1)" + JSON.stringify(newTaskIds));
   newTaskIds.splice(source.index, 1);
   // console.log("newTaskIds : (2)" + JSON.stringify(newTaskIds));
-  newTaskIds.splice(destination.index, 0, this.state.taskData.filter(task => task.id === draggableId));
-  
-  // console.log( this.state.taskData.filter(task => task.id === draggableId));
+  //newTaskIds.splice(destination.index, 0, this.state.filter(task => task.id === draggableId));
+  newTaskIds.splice(destination.index, 0, draggableId);
 
-  // const newColumn = {
-  //     ...column,
-  //     taskIds: newTaskIds,
-  // };
-
-  console.log("newTaskIds : " + JSON.stringify(newTaskIds));
-
-  // const newState = {
-  //     ...this.state,
-  //     columns: {
-  //         ...this.state.columns,
-  //         [newColumn.id] : newColumn,
-  //     },
-  // };
-
-  // this.setState(newState);
-
-  
-  this.setState(initialData.columns['column-1'].taskIds = newTaskIds);
-  this.setState({taskData : newTaskIds});
-  console.log("newTaskIds : " + JSON.stringify(this.state.taskData));
-  // console.log("final : "+ JSON.stringify(this.state.taskData));
-  // console.log("final : "+ JSON.stringify(initialData.columns['column-1'].taskIds = newTaskIds));
-  // this.setState(initialData.columns['column-1'].taskIds = newTaskIds);
+  this.setState(this.state.columns['column-1'].taskIds = newTaskIds);
 }
-
-
 
   render(){
     return (
@@ -116,11 +109,12 @@ onDragEnd = result => {
         <DragDropContext
             onDragEnd={this.onDragEnd}
         >
-          {this.state.initialData.columnOrder.map((columnID, index) => {
-              const column = this.state.initialData.columns[columnID];
-          
+          {this.state.columnOrder.map((columnID, index) => {
+              const column = this.state.columns[columnID];
+              const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+
             // return이 있어야지 동작한다 왜? 
-            return <Column key={column.id} index={index} column={column} tasks={column.taskIds} handleAdd={this.handleAdd}/>
+            return <Column key={column.id} index={index} column={column} tasks={tasks} handleAdd={this.handleAdd}/>
             })
           }
         </DragDropContext>

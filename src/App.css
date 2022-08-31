@@ -24,6 +24,23 @@
   width: 350px;
 }
 
-/* .btn-add{
-  float: right;
-} */
+.task{
+  background-color: #FFFFFF;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  @apply shadow-md;
+}
+
+.column_title{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.btn-add{
+  background-color: #B958A5;
+  color: white;
+
+}
+
