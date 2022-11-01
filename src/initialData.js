@@ -7,12 +7,6 @@ const initialData = {
         'task-3' : {id:'task-3' ,name: "수영하기" , count : 0} 
     },
 
-    // tasks : [
-    //     {id: 'task-1', name: "Reading" , count : 0}, 
-    //     {id:'task-2' ,name: "Writing" , count : 0}, 
-    //     {id:'task-3' ,name: "수영하기" , count : 0} 
-    // ],
-
     columns: {
         'column-1' : {
         id: 'column-1',

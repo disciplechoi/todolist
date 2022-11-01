@@ -24,8 +24,12 @@ const TaskList = styled.div`
 
 class Column extends Component {
 
-    handleAdd=(task)=>{
-        this.props.handleAdd(task);
+    handleAdd=()=>{
+        this.props.handleAdd();
+    }
+
+    handleSave=(taskName) => {
+        this.props.handleSave(taskName);
     }
 
     // name = this.props.tasks.map(task=>task.name);
@@ -37,13 +41,9 @@ class Column extends Component {
                     <Title>
                         {this.props.column.title}
                     </Title>
-                    {this.props.column.id === 'column-1' ? <button className="btn-add  text-white font-bold px-4 rounded-full">+ Add Task</button> : <></>}
+                    {this.props.column.id === 'column-1' ? <button className="btn-add  text-white font-bold px-4 rounded-full" onClick={this.handleAdd}>+ Add Task</button> : <></>}
                 </div>
-                
-                {/* {this.props.column.id === 'column-1' ? <AddTask handleAdd={this.handleAdd} /> : <></>} */}
-
-
-            
+               
                 <Droppable droppableId={this.props.column.id} key={this.props.column.id}>
                     {(provided)=>(
                         <TaskList
@@ -53,7 +53,7 @@ class Column extends Component {
                          {
                             this.props.tasks.map((task, index)=>
                             // {console.log(task.id)}
-                            <Task key={task.id} task={task} index={index}/>
+                            <Task key={task.id} task={task} index={index} handleSave={this.handleSave}/>
                             )
                          }
                          {provided.placeholder}

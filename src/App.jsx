@@ -51,27 +51,60 @@ class App extends Component {
   
 // }
 
-handleAdd=(task)=>{
- 
-  const tag = 'task-'+Date.now().toString();
-
-  // const tasks = [...this.state.tasks, tag : {id: Date.now().toString(), name:task, count: 0} ];
- 
-  const newTaskIds = this.state.columns['column-1'].taskIds.map(taskIds => taskIds);
-  const newTaskIds2 = [...newTaskIds,tag];
-
-  //도대체 setState를 어떻게 해야지 전체적으로 적용이 되는지 모르겠음.
-  const newTask2={
-    ...this.state,
-    tasks: {
-      ...this.state.tasks,
-      [tag] : {id: tag, name:task, count: 0}
+handleAdd=()=>{
+  
+    const tag = 'task-'+Date.now().toString();
+    const taskIds = this.state.columns['column-1'].taskIds.map(taskIds => taskIds);
+    //console.log(newTaskIds);
+    const newTaskIds = [...taskIds,tag];
+    
+    //도대체 setState를 어떻게 해야지 전체적으로 적용이 되는지 모르겠음.
+    const newTaskList={
+      ...this.state,
+      tasks: {
+        ...this.state.tasks,
+        [tag] : {id: tag, name: "", count: 0}
+      },
+      columns:{
+        ...this.state.columns,
+        'column-1' : {
+          ...this.state.columns['column-1'],
+          taskIds : newTaskIds
+        }
+      }
     }
-  }
-  this.setState(newTask2);
+    this.setState(newTaskList);
+  
+}
 
-  const test = [...this.state.columns['column-1'].taskIds, tag]
-  this.setState(this.state.columns['column-1'].taskIds = test);
+handleSave=(taskName)=>{
+  
+    console.log("taskName" + taskName);
+  
+    //const tag = 'task-'+Date.now().toString();
+    //const taskIds = this.state.tasks.map(taskIds => taskIds);
+    const taskIds = Object.keys(this.state.tasks);
+    //console.log("task last"+taskIds);
+    const lastTaskIds= taskIds[Object.keys(taskIds)[Object.keys(taskIds).length - 1]];
+    //console.log(lastTaskIds);
+    //console.log(newTaskIds);
+    //const newTaskIds = [...taskIds,tag];
+    const test = {id: lastTaskIds, name: taskName, count: 0};
+    console.log(test);
+   
+    const newTaskList={
+      ...this.state,
+      tasks: {
+        ...this.state.tasks,
+        lastTaskIds : test
+      },
+    }
+
+    console.log(newTaskList);
+    this.state.tasks[lastTaskIds].name = taskName;
+    //this.setState({this.state.tasks[lastTaskIds].name : taskName});
+    //this.setState({initialData : newTaskList});
+    //console.log(JSON.stringify(this.state.tasks))
 
 }
 
@@ -80,7 +113,7 @@ onDragEnd = result => {
 
   // console.log("destination : " + JSON.stringify(destination));
   // console.log("source :  "+ JSON.stringify(source));
-  console.log("draggableId "+ draggableId);
+  //console.log("draggableId "+ draggableId);
 
   if(!destination) return;
   
@@ -114,7 +147,7 @@ onDragEnd = result => {
               const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
 
             // return이 있어야지 동작한다 왜? 
-            return <Column key={column.id} index={index} column={column} tasks={tasks} handleAdd={this.handleAdd}/>
+            return <Column key={column.id} index={index} column={column} tasks={tasks} handleAdd={this.handleAdd} handleSave={this.handleSave}/>
             })
           }
         </DragDropContext>
